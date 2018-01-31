@@ -14,7 +14,7 @@
             <input type="text" class="form-control" placeholder="Nom de famille" autocomplete="family-name" v-model="lastName" required />
             <input type="text" class="form-control" placeholder="Prénom" autocomplete="given-name" v-model="firstName" required />
             <input type="date" class="form-control" placeholder="Date de naissance" autocomplete="bday" v-model="birthDate" required />
-            <input type="email" class="form-control" placeholder="Adresse e-mail" v-model="email" required />
+            <input type="email" class="form-control" placeholder="Adresse e-mail" autocomplete="email" v-model="email" required />
             <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="newUsername" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="new-password" v-model="newPassword" required />
           </fieldset>
@@ -53,7 +53,15 @@ export default {
         'des mèmes'
       ],
       joke: '',
-      currentForm: 0
+      currentForm: 0,
+      lastName: '',
+      firstName: '',
+      birthDate: '',
+      email: '',
+      newUsername: '',
+      newPassword: '',
+      username: '',
+      password: ''
     }
   },
   mounted: function () {
