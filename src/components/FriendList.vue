@@ -3,9 +3,9 @@
       <h2>Trouver de nouveaux amis</h2>
       <form class="form-inline mb-5">
         <div class="input-group w-100">
-          <input type="text" class="form-control" placeholder="Entrez un nom" />
+          <input type="text" class="form-control" placeholder="Entrez un nom" v-on:keyup.13="doSearch" v-model="searchText" />
           <div class="input-group-append">
-            <button class="btn btn-secondary" type="button">Rechercher</button>
+            <button class="btn btn-secondary" type="button" v-on:click="doSearch" v-bind:disabled="$data.searchText.trim().length <= 0">Rechercher</button>
           </div>
         </div>
       </form>
@@ -20,8 +20,20 @@
 import friendbutton from './friendbutton.vue'
 export default {
   name: 'FriendList',
+  data: function () {
+    return {
+      searchText: ''
+    }
+  },
   components: {
     friendbutton
+  },
+  methods: {
+    doSearch: function (event) {
+      if (this.$data.searchText.trim().length) {
+        this.$router.push({name: 'FriendSearch', params: { text: this.$data.searchText.trim() }})
+      }
+    }
   }
 }
 </script>
