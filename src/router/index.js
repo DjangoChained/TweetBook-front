@@ -29,6 +29,12 @@ const router = new Router({
     {
       path: '/friends',
       redirect: '/friends/list'
+    },
+    {
+      path: '/logout',
+      redirect: to => {
+        return auth.logout() ? '/' : false
+      }
     }
   ]
 })
