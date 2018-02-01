@@ -29,7 +29,7 @@
             <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="username" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" v-model="password" required />
           </fieldset>
-          <button type="submit" class="btn btn-primary">Se connecter</button>
+          <button type="submit" class="btn btn-primary" v-on:click="loginButton">Se connecter</button>
         </form>
         <p>Pas encore membre ? <a href="#" v-on:click="currentForm--"><strong>S'inscrire</strong></a></p>
       </div>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import auth from '@/services/auth'
 export default {
   name: 'index',
   data () {
@@ -70,6 +71,13 @@ export default {
       self.$data.joke = self.$data.jokes[Math.floor(Math.random() * self.$data.jokes.length)]
     }, 3000)
     this.joke = this.jokes[Math.floor(Math.random() * this.jokes.length)]
+  },
+  methods: {
+    loginButton: function () {
+      if (auth.login(this.$data.username, this.$data.password)) {
+        this.$router.push('/feed')
+      }
+    }
   }
 }
 </script>
