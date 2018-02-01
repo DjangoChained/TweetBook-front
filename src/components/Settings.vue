@@ -45,7 +45,29 @@
             </div>
           </div>
         </fieldset>
-        <button type="submit" class="btn btn-primary text-uppercase d-block ml-auto" v-on:click="saveSettings">Enregistrer</button>
+        <button type="button" class="btn btn-primary text-uppercase d-block ml-auto" v-on:click="saveSettings">Enregistrer</button>
+    </form>
+    <h2>Modification du mot de passe</h2>
+    <form>
+      <div class="form-group row">
+        <label for="currentPasswordInput" class="col-sm-4 col-md-3 col-form-label">Mot de passe actuel</label>
+        <div class="col-sm-8 col-md-9">
+          <input type="password" id="currentPasswordInput" class="form-control" placeholder="Mot de passe actuel" autocomplete="current-password" v-model="currentPassword" required />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="newPasswordInput" class="col-sm-4 col-md-3 col-form-label">Nouveau mot de passe</label>
+        <div class="col-sm-8 col-md-9">
+          <input type="password" id="newPasswordInput" class="form-control" placeholder="Nouveau mot de passe" autocomplete="new-password" v-model="newPassword" required />
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="confirmPasswordInput" class="col-sm-4 col-md-3 col-form-label">Confirmation du mot de passe</label>
+        <div class="col-sm-8 col-md-9">
+          <input type="password" id="confirmPasswordInput" class="form-control" placeholder="Confirmation du mot de passe" autocomplete="new-password" v-model="confirmPassword" required />
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary text-uppercase d-block ml-auto" v-on:click="savePassword">Modifier</button>
     </form>
   </div>
 </template>
@@ -59,12 +81,18 @@ export default {
       firstName: '',
       birthDate: '',
       email: '',
-      visibility: ''
+      visibility: '',
+      currentPassword: '',
+      newPassword: '',
+      confirmPassword: ''
     }
   },
   methods: {
     saveSettings: function () {
       // TODO: Enregistrement des paramètres
+    },
+    savePassword: function () {
+      // TODO: Modification du mot de passe
     }
   }
 }
