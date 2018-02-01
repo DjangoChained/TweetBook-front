@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
 import FriendList from '@/components/FriendList'
+import FriendSearch from '@/components/FriendSearch'
 
 Vue.use(Router)
 
@@ -17,17 +18,26 @@ const router = new Router({
       name: 'FriendList',
       component: FriendList,
       secure: true
+    },
+    {
+      path: '/friends/search/:text',
+      name: 'FriendSearch',
+      component: FriendSearch,
+      secure: true
+    },
+    {
+      path: '/friends',
+      redirect: '/friends/list'
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  router.options.routes.forEach((route) => {
-    if (to.matched[0].path === route.path && route.secure && !router.app.logged_on) {
-      return next('/')
-    }
-  })
-  next()
+  if (to.path !== '/' && !router.app.logged_on) {
+    next('/')
+  } else {
+    next()
+  }
 })
 
 export default router
