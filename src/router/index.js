@@ -4,6 +4,7 @@ import auth from '@/services/auth'
 import Index from '@/components/Index'
 import FriendList from '@/components/FriendList'
 import FriendSearch from '@/components/FriendSearch'
+import Settings from '@/components/Settings'
 
 Vue.use(Router)
 
@@ -17,18 +18,21 @@ const router = new Router({
     {
       path: '/friends/list',
       name: 'FriendList',
-      component: FriendList,
-      secure: true
+      component: FriendList
     },
     {
       path: '/friends/search/:text',
       name: 'FriendSearch',
-      component: FriendSearch,
-      secure: true
+      component: FriendSearch
     },
     {
       path: '/friends',
       redirect: '/friends/list'
+    },
+    {
+      path: '/settings',
+      name: 'Settings',
+      component: Settings
     },
     {
       path: '/logout',
