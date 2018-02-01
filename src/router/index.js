@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import auth from '@/services/auth'
 import Index from '@/components/Index'
 import FriendList from '@/components/FriendList'
 import FriendSearch from '@/components/FriendSearch'
@@ -33,11 +34,16 @@ const router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.path !== '/' && !router.app.logged_on) {
-    next('/')
+  if (to.path !== '/') {
+    if (!auth.authenticated) {
+      return next('/')
+    }
   } else {
-    next()
+    if (auth.authenticated) {
+      return next('/feed')
+    }
   }
+  next()
 })
 
 export default router

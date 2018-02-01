@@ -7,7 +7,7 @@
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
           </button>
-          <div class="collapse navbar-collapse" id="navbarCollapse" v-if="logged_on">
+          <div class="collapse navbar-collapse" id="navbarCollapse" v-if="isLoggedOn()">
             <ul class="navbar-nav ml-auto mr-auto">
               <li class="nav-item">
                 <a class="nav-link" href="#/feed">Flux</a>
@@ -41,17 +41,22 @@
 
 <script>
 import loader from './components/loader.vue'
+import auth from './services/auth.js'
 export default {
   name: 'app',
   data () {
     return {
-      logged_on: false,
       loading: false,
       loading_text: 'Chargement'
     }
   },
   components: {
     loader
+  },
+  methods: {
+    isLoggedOn: function () {
+      return auth.authenticated
+    }
   }
 }
 </script>
