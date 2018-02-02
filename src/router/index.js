@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import auth from '@/services/auth'
 import Index from '@/components/Index'
+import Wall from '@/components/Wall'
 import Feed from '@/components/Feed'
 import FriendList from '@/components/FriendList'
 import FriendSearch from '@/components/FriendSearch'
@@ -20,6 +21,11 @@ const router = new Router({
       path: '/feed',
       name: 'Feed',
       component: Feed
+    },
+    {
+      path: '/wall',
+      name: 'Wall',
+      component: Wall
     },
     {
       path: '/friends/list',
