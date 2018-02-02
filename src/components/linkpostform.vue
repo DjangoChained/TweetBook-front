@@ -4,8 +4,8 @@
         <div class="col-12 col-sm-10 mb-2 order-first">
           <textarea class="form-control" placeholder="Qu'avez-vous en tête ?" v-model="content" v-on:keyup.enter="sendPost" required></textarea>
         </div>
-        <div class="col-12 col-sm-2 order-last order-sm-2">
-          <button type="button" class="btn btn-primary w-100 h-100" v-on:click="sendPost">Publier</button>
+        <div class="col-12 col-sm-2 mb-0 mb-sm-2 order-last order-sm-2 align-self-center">
+          <button type="button" class="btn btn-primary w-100" v-on:click="sendPost">Publier</button>
         </div>
         <div class="col-12 col-md-6 order-2 order-sm-3">
           <input type="url" class="form-control" placeholder="http://..." v-model="url" required />
