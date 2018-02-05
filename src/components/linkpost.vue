@@ -2,7 +2,7 @@
     <div class="post">
         <div class="post-content">
             <div class="content">
-                <p class="name">{{ author }}</p>
+                <p class="header"><span class="name">{{ author }}</span> <em>{{ date }}</em></p>
                 <p>{{ content }}</p>
             </div>
             <div class="btn-group-vertical">
@@ -20,7 +20,7 @@
 <script>
 export default {
   name: 'textpost',
-  props: ['author', 'content', 'url', 'title'],
+  props: ['author', 'content', 'url', 'title', 'date'],
   data: function () {
     return {
       reaction: ''
@@ -33,10 +33,12 @@ export default {
 p {
     margin-bottom: 0.5em;
 }
-p.name {
+p.header {
+    font-size: 90%;
+}
+span.name {
     color: #446E9B;
     font-weight: bold;
-    font-size: 90%;
 }
 .post {
     border-radius: 5px 5px 0 0;
