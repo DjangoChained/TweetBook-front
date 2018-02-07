@@ -4,6 +4,7 @@ import auth from '@/services/auth'
 import Index from '@/components/Index'
 import Wall from '@/components/Wall'
 import Feed from '@/components/Feed'
+import ViewPost from '@/components/ViewPost'
 import FriendList from '@/components/FriendList'
 import FriendSearch from '@/components/FriendSearch'
 import Settings from '@/components/Settings'
@@ -27,6 +28,11 @@ const router = new Router({
       path: '/wall',
       name: 'Wall',
       component: Wall
+    },
+    {
+      path: '/post/:id',
+      name: 'ViewPost',
+      component: ViewPost
     },
     {
       path: '/friends/list',
