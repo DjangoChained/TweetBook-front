@@ -1,13 +1,25 @@
 <template>
     <div class="activity">
-        <div class="fa fa-user"></div> <strong>{{ author }}</strong> a aimé <a v-bind:href="'#/post/'+postId"><strong>une publication</strong></a> de <strong>{{ postAuthor }}</strong> <em>{{ date }}</em>
+        <div class="fa" v-bind:class="reactionIcons"></div> <strong>{{ author }}</strong> {{ reactionLabels[reaction] }} <a v-bind:href="'#/post/'+postId"><strong>une publication</strong></a> de <strong>{{ postAuthor }}</strong> <em>{{ date }}</em>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'friendactivity',
-  props: ['author', 'postId', 'postAuthor', 'reaction', 'date']
+  name: 'reactionactivity',
+  props: ['author', 'postId', 'postAuthor', 'reaction', 'date'],
+  data: function () {
+    return {
+      reactionLabels: {
+        'like': 'a aimé',
+        'dislike': "n'a pas aimé"
+      },
+      reactionIcons: {
+        'fa-thumbs-up': this.$props.reaction === 'like',
+        'fa-thumbs-down': this.$props.reaction === 'dislike'
+      }
+    }
+  }
 }
 </script>
 
