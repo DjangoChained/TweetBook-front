@@ -6,12 +6,14 @@
         <button class="nav-item nav-link btn btn-link" v-bind:class="{'active': currentType === 'link' }" v-on:click="currentType = 'link'">Lien</button>
     </nav>
     <textpostform v-show="currentType === 'text'" />
+    <imagepostform v-show="currentType === 'photo'" />
     <linkpostform v-show="currentType === 'link'" />
 </div>
 </template>
 
 <script>
 import textpostform from '@/components/textpostform'
+import imagepostform from '@/components/imagepostform'
 import linkpostform from '@/components/linkpostform'
 export default {
   name: 'postform',
@@ -22,6 +24,7 @@ export default {
   },
   components: {
     textpostform,
+    imagepostform,
     linkpostform
   }
 }
