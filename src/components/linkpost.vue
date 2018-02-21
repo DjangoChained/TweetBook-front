@@ -2,25 +2,25 @@
     <div class="post">
         <div class="post-content">
             <div class="content">
-                <p class="header"><span class="name">{{ author }}</span> <em>{{ date }}</em></p>
-                <p>{{ content }}</p>
+                <p class="header"><span class="name">{{ post.authorid }}</span> <em>{{ post.date }}</em></p>
+                <p>{{ post.content }}</p>
             </div>
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-success" v-bind:class="{ active: reaction == 'like' }" v-on:click="reaction = (reaction == 'like' ? '' : 'like')"><i class="fa fa-thumbs-up"></i></button>
-                <button type="button" class="btn btn-danger" v-bind:class="{active: reaction == 'dislike' }" v-on:click="reaction = (reaction == 'dislike' ? '' : 'dislike')"><i class="fa fa-thumbs-down"></i></button>
+                <button type="button" class="btn btn-danger" v-bind:class="{ active: reaction == 'dislike' }" v-on:click="reaction = (reaction == 'dislike' ? '' : 'dislike')"><i class="fa fa-thumbs-down"></i></button>
             </div>
         </div>
         <div class="post-embed">
-            <p><a v-bind:href="url" target="_blank">{{ title }}</a></p>
-            <p>{{ url }}</p>
+            <p><a v-bind:href="post.url" target="_blank">{{ post.title }}</a></p>
+            <p>{{ post.url }}</p>
         </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'textpost',
-  props: ['author', 'content', 'url', 'title', 'date'],
+  name: 'linkpost',
+  props: ['post'],
   data: function () {
     return {
       reaction: ''

@@ -2,8 +2,8 @@
     <div class="post">
         <div class="post-content">
             <div class="content">
-                <p class="header"><span class="name">{{ author }}</span> <em>{{ date }}</em></p>
-                <p>{{ content }}</p>
+                <p class="header"><span class="name">{{ post.authorid }}</span> <em>{{ post.date }}</em></p>
+                <p>{{ post.content }}</p>
             </div>
             <div class="btn-group-vertical">
                 <button type="button" class="btn btn-success" v-bind:class="{ active: reaction == 'like' }" v-on:click="reaction = (reaction == 'like' ? '' : 'like')"><i class="fa fa-thumbs-up"></i></button>
@@ -11,7 +11,7 @@
             </div>
         </div>
         <div class="post-embed">
-            <img v-bind:src="img" />
+            <img v-bind:src="post.img" />
         </div>
     </div>
 </template>
@@ -19,7 +19,7 @@
 <script>
 export default {
   name: 'textpost',
-  props: ['author', 'content', 'img', 'date'],
+  props: ['post'],
   data: function () {
     return {
       reaction: ''
