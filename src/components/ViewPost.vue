@@ -1,17 +1,28 @@
 <template>
-    <textpost author="Bob" content="Ceci est une publication" date="32 janvier 2042" />
+    <post :json="post" />
 </template>
 
 <script>
-import textpost from '@/components/textpost'
-import imagepost from '@/components/imagepost'
-import linkpost from '@/components/linkpost'
+import post from '@/components/post'
 export default {
   name: 'ViewPost',
   components: {
-    textpost,
-    imagepost,
-    linkpost
+    post
+  },
+  data: function () {
+    return {
+      post: {}
+    }
+  },
+  mounted: function () {
+    this.$parent.$data.loading = true
+    this.$http.get('Post?id=' + this.$route.params['id']).then(response => {
+      this.$parent.$data.loading = false
+      this.post = response.body.data
+    }, response => {
+      console.log(response)
+      this.$router.push('/404')
+    })
   }
 }
 </script>
