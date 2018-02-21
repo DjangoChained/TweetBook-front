@@ -2,7 +2,7 @@
     <div class="post">
         <div class="post-content">
             <div class="content">
-                <p class="header"><span class="name">{{ post.authorid }}</span> <em>{{ post.date }}</em></p>
+                <p class="header"><span class="name">{{ post.authorname }}</span> <em>{{ post.date }}</em></p>
                 <p>{{ post.content }}</p>
             </div>
             <div class="btn-group-vertical">
@@ -11,14 +11,14 @@
             </div>
         </div>
         <div class="post-embed">
-            <img v-bind:src="post.img" />
+            <img v-bind:src="post.url" />
         </div>
     </div>
 </template>
 
 <script>
 export default {
-  name: 'textpost',
+  name: 'imagepost',
   props: ['post'],
   data: function () {
     return {
