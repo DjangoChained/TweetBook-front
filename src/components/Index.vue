@@ -74,7 +74,9 @@ export default {
   },
   methods: {
     loginButton: function () {
+      this.$parent.$data.loading = true
       if (auth.login(this.$data.username, this.$data.password)) {
+        this.$parent.$data.loading = false
         this.$router.push('/feed')
       }
     }
