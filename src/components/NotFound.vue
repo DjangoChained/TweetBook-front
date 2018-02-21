@@ -14,6 +14,9 @@ export default {
     back: function () {
       window.history.back()
     }
+  },
+  mounted: function () {
+    this.$parent.$data.loading = false
   }
 }
 </script>
