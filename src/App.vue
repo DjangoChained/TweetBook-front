@@ -36,22 +36,28 @@
       <router-view></router-view>
     </main>
     <loader v-show="loading" v-bind:text="loading_text" />
+    <modaldialog :title="modal_title" :content="modal_content" :visible="modal" />
   </div>
 </template>
 
 <script>
 import loader from './components/loader.vue'
+import modaldialog from './components/modaldialog.vue'
 import auth from './services/auth.js'
 export default {
   name: 'app',
   data () {
     return {
       loading: false,
-      loading_text: 'Chargement'
+      loading_text: 'Chargement',
+      modal: true,
+      modal_title: '',
+      modal_content: ''
     }
   },
   components: {
-    loader
+    loader,
+    modaldialog
   },
   methods: {
     isLoggedOn: function () {
