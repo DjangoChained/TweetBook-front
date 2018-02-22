@@ -4,7 +4,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">{{ title }}</h5>
-          <button type="button" class="close" aria-label="Close" v-on:click="hide">
+          <button type="button" class="close" aria-label="Close" data-dismiss = "modal">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
@@ -12,7 +12,7 @@
           <p>{{ content }}</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" v-on:click="hide">Fermer</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
         </div>
       </div>
     </div>
@@ -21,11 +21,14 @@
 
 <script>
 import $ from 'jquery'
-import 'bootstrap'
 export default {
   name: 'modaldialog',
   props: ['title', 'content', 'visible'],
   mounted: function () {
+    var dis = this
+    $('.modal').on('hide.bs.modal', function () {
+      dis.$parent.$data.modal = false
+    })
     if (this.$props['visible']) {
       $('.modal').modal('show')
     }
@@ -33,11 +36,6 @@ export default {
   watch: {
     visible: function (visibility) {
       $('.modal').modal(visibility ? 'show' : 'hide')
-    }
-  },
-  methods: {
-    hide: function () {
-      this.$parent.$data.modal = false
     }
   }
 }
