@@ -18,3 +18,18 @@ export const guiError = function (app, message) {
   app.$data.modal = true
   app.$data.loading = false
 }
+
+export const doGet = function (component, url, callback) {
+  component.$parent.$data.loading = true
+  component.$http.get(url).then(checkError, response => {
+    guiError(component.$parent, response.statusText)
+    component.$router.push('/404')
+  }).then(response => {
+    if (!response) return
+    callback(response.body)
+    component.$parent.$data.loading = false
+  }, message => {
+    guiError(component.$parent, message)
+    component.$router.push('/404')
+  })
+}
