@@ -18,7 +18,7 @@
             <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="newUsername" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="new-password" v-model="newPassword" required />
           </fieldset>
-          <button type="submit" class="btn btn-primary">S'inscrire</button>
+          <button type="button" class="btn btn-primary">S'inscrire</button>
         </form>
         <p>Déjà membre ? <a href="#" v-on:click="currentForm++"><strong>Se connecter</strong></a></p>
       </div>
@@ -29,7 +29,7 @@
             <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="username" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" v-model="password" required />
           </fieldset>
-          <button type="submit" class="btn btn-primary" v-on:click="loginButton">Se connecter</button>
+          <button type="button" class="btn btn-primary" v-on:click="loginButton">Se connecter</button>
         </form>
         <p>Pas encore membre ? <a href="#" v-on:click="currentForm--"><strong>S'inscrire</strong></a></p>
       </div>
