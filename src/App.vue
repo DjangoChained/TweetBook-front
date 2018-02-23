@@ -50,7 +50,7 @@ export default {
     return {
       loading: false,
       loading_text: 'Chargement',
-      modal: true,
+      modal: false,
       modal_title: '',
       modal_content: ''
     }
