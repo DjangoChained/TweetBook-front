@@ -11,7 +11,7 @@ import textpost from '@/components/textpost'
 import imagepost from '@/components/imagepost'
 import linkpost from '@/components/linkpost'
 export default {
-  name: 'ViewPost',
+  name: 'post',
   props: ['json'],
   components: {
     textpost,

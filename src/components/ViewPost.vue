@@ -5,6 +5,7 @@
 <script>
 import post from '@/components/post'
 import getUserRealName from '@/services/users'
+import { checkError, guiError } from '@/services/api'
 export default {
   name: 'ViewPost',
   components: {
@@ -17,21 +18,19 @@ export default {
   },
   mounted: function () {
     this.$parent.$data.loading = true
-    this.$http.get('post?id=' + this.$route.params['id']).then(response => {
-      if (response.body.status !== 'success') {
-        console.log(response)
-        this.$router.push('/404')
-        return false
-      }
-      return response.body.post
-    }, response => {
-      console.log(response)
+    this.$http.get('post?id=' + this.$route.params['id']).then(checkError, response => {
+      guiError(this.$parent, response.statusText)
       this.$router.push('/404')
-    }).then(post => {
-      this.post = post
-      getUserRealName(post.authorid).then(name => {
+    }).then(response => {
+      if (!response) return
+      this.post = response.body.post
+      getUserRealName(this.post.authorid).then(name => {
         this.post.authorname = name
+        this.$parent.$data.loading = false
       })
+    }, message => {
+      guiError(this.$parent, message)
+      this.$router.push('/404')
     })
   }
 }

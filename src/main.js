@@ -13,7 +13,7 @@ Vue.use(VueResource)
 Vue.http.options.root = 'http://localhost:8080/TweetLivre'
 
 /* eslint-disable no-new */
-new Vue({
+export default new Vue({
   el: '#app',
   router,
   template: '<App/>',
