@@ -23,11 +23,11 @@ export default {
         this.$router.push('/404')
         return false
       }
-      return response
+      return response.body.post
     }, response => {
       console.log(response)
       this.$router.push('/404')
-    }).then(response => response.body.post).then(post => {
+    }).then(post => {
       this.post = post
       getUserRealName(post.authorid).then(name => {
         this.post.authorname = name
