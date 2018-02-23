@@ -2,7 +2,7 @@
     <div class="post">
         <div class="post-content">
             <div class="content">
-                <p class="header"><span class="name">{{ post.authorname }}</span> <em>{{ post.date }}</em></p>
+                <p class="header"><span class="name">{{ post.authorname || '' }}</span> <em>{{ post.date }}</em></p>
                 <p>{{ post.content }}</p>
             </div>
             <div class="btn-group-vertical">
