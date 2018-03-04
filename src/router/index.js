@@ -8,6 +8,7 @@ import ViewPost from '@/components/ViewPost'
 import FriendList from '@/components/FriendList'
 import FriendSearch from '@/components/FriendSearch'
 import Settings from '@/components/Settings'
+import Logout from '@/components/Logout'
 import NotFound from '@/components/NotFound'
 
 Vue.use(Router)
@@ -55,9 +56,8 @@ const router = new Router({
     },
     {
       path: '/logout',
-      redirect: to => {
-        return auth.logout() ? '/' : false
-      }
+      name: 'Logout',
+      component: Logout
     },
     {
       path: '/404',

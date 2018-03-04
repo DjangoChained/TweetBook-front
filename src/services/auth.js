@@ -18,7 +18,7 @@ export default {
       })
   },
   logout: function () {
-    return Vue.http.post('user/logout')
+    return Vue.http.get('user/logout')
       .catch(response => Promise.reject(new Error(response.status > 100
         ? 'Une erreur de type ' + response.status + ' ' + response.statusText + " s'est produite."
         : "Une erreur réseau s'est produite. Réessayez ultérieurement."))
