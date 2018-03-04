@@ -14,8 +14,8 @@
             <input type="text" class="form-control" placeholder="Nom de famille" autocomplete="family-name" v-model="lastName" required />
             <input type="text" class="form-control" placeholder="Prénom" autocomplete="given-name" v-model="firstName" required />
             <input type="date" class="form-control" placeholder="Date de naissance" autocomplete="bday" v-model="birthDate" required />
-            <input type="email" class="form-control" placeholder="Adresse e-mail" autocomplete="email" v-model="email" required />
-            <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="newUsername" required />
+            <input type="email" class="form-control" placeholder="Adresse e-mail" autocomplete="email" v-model="newEmail" required />
+            <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="username" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="new-password" v-model="newPassword" required />
           </fieldset>
           <button type="button" class="btn btn-primary">S'inscrire</button>
@@ -26,7 +26,7 @@
         <h3>Bienvenue</h3>
         <form>
           <fieldset>
-            <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="username" required />
+            <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="email" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" v-model="password" required />
           </fieldset>
           <button type="button" class="btn btn-primary" v-on:click="loginButton">Se connecter</button>
@@ -58,10 +58,10 @@ export default {
       lastName: '',
       firstName: '',
       birthDate: '',
-      email: '',
-      newUsername: '',
-      newPassword: '',
+      newEmail: '',
       username: '',
+      newPassword: '',
+      email: '',
       password: ''
     }
   },
@@ -75,10 +75,15 @@ export default {
   methods: {
     loginButton: function () {
       this.$parent.$data.loading = true
-      if (auth.login(this.$data.username, this.$data.password)) {
+      auth.login(this.$data.email, this.$data.password).then(() => {
         this.$parent.$data.loading = false
         this.$router.push('/feed')
-      }
+      }, err => {
+        this.$parent.$data.loading = false
+        this.$parent.$data.modal_title = "Erreur d'authentification"
+        this.$parent.$data.modal_content = err.message
+        this.$parent.$data.modal = true
+      })
     }
   }
 }
