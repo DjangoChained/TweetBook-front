@@ -18,7 +18,7 @@
             <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="username" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="new-password" v-model="newPassword" required />
           </fieldset>
-          <button type="button" class="btn btn-primary">S'inscrire</button>
+          <button type="button" class="btn btn-primary" v-on:click="registerButton">S'inscrire</button>
         </form>
         <p>Déjà membre ? <a href="#" v-on:click="currentForm++"><strong>Se connecter</strong></a></p>
       </div>
@@ -26,7 +26,7 @@
         <h3>Bienvenue</h3>
         <form>
           <fieldset>
-            <input type="text" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="email" required />
+            <input type="text" class="form-control" placeholder="Adresse e-mail" autocomplete="email" v-model="email" required />
             <input type="password" class="form-control" placeholder="Mot de passe" autocomplete="current-password" v-model="password" required />
           </fieldset>
           <button type="button" class="btn btn-primary" v-on:click="loginButton">Se connecter</button>
@@ -81,6 +81,21 @@ export default {
       }, err => {
         this.$parent.$data.loading = false
         this.$parent.$data.modal_title = "Erreur d'authentification"
+        this.$parent.$data.modal_content = err.message
+        this.$parent.$data.modal = true
+      })
+    },
+    registerButton: function () {
+      this.$parent.$data.loading = true
+      auth.register(this.$data.firstName, this.$data.lastName, this.$data.birthDate, this.$data.username, this.$data.newEmail, this.$data.newPassword).then(() => {
+        this.$parent.$data.loading = false
+        this.$data.currentForm = 1
+        this.$parent.$data.modal_title = 'Bienvenue parmi nous !'
+        this.$parent.$data.modal_content = 'Vous pouvez maintenant vous connecter avec vos identifiants.'
+        this.$parent.$data.modal = true
+      }, err => {
+        this.$parent.$data.loading = false
+        this.$parent.$data.modal_title = "Erreur d'inscription"
         this.$parent.$data.modal_content = err.message
         this.$parent.$data.modal = true
       })
