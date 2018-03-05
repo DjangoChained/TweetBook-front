@@ -1,11 +1,9 @@
-import App from '@/App'
-import { checkError } from './api'
+import { doGet } from './api'
 export default {
-  getUserRealName: function (id) {
-    return App.$http.get('user?id=' + id).then(checkError).then(response => {
+  getUserRealName: id =>
+    doGet('user?id=' + id).then(response => {
       return response.user.firstName + ' ' + response.user.lastName
     }, message => {
       return null
     })
-  }
 }

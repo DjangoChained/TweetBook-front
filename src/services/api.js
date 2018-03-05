@@ -1,35 +1,21 @@
+import Vue from 'vue'
+
 /* Contrôler le résultat d'une requête.
 Si une erreur quelconque est rencontrée, renvoie directement le message d'erreur. */
-export const checkError = function (json) {
-  const promise = new Promise(function (resolve, reject) {
-    if ((json || {}).status !== 'success') {
-      reject((json || {}).message || 'Aucune donnée JSON reçue')
-    } else {
-      resolve(json)
-    }
-  })
-  return promise
-}
+export const checkError = promise =>
+  promise
+    .catch(response => Promise.reject(new Error(response.status > 100
+      ? 'Une erreur de type ' + response.status + ' ' + response.statusText + " s'est produite."
+      : "Une erreur réseau s'est produite. Réessayez ultérieurement."))
+    )
+    .then(response => response.json())
+    .then(response => {
+      if (response.status !== 'success') {
+        return Promise.reject(new Error(response.message))
+      }
+    })
 
-/* Afficher une erreur causée par une requête à l'utilisateur. */
-export const guiError = function (app, message) {
-  app.$data.modal_title = "Erreur lors d'une requête au serveur"
-  app.$data.modal_content = message ? "Une erreur s'est produite lors d'une requête au serveur TweetBook : " + message : "Une erreur d'origine inconnue s'est produite lors d'une requête au serveur TweetBook. Veuillez réessayer ultérieurement. Si le problème persiste, contactez le support technique."
-  app.$data.modal = true
-  app.$data.loading = false
-}
-
-export const doGet = function (component, url, callback) {
-  component.$parent.$data.loading = true
-  component.$http.get(url).then(checkError, response => {
-    guiError(component.$parent, response.statusText)
-    component.$router.push('/404')
-  }).then(response => {
-    if (!response) return
-    callback(response.body)
-    component.$parent.$data.loading = false
-  }, message => {
-    guiError(component.$parent, message)
-    component.$router.push('/404')
-  })
-}
+export const doGet = (url, params) => checkError(Vue.http.get(url, params))
+export const doPost = (url, params) => checkError(Vue.http.post(url, params))
+export const doPut = (url, params) => checkError(Vue.http.put(url, params))
+export const doDelete = (url, params) => checkError(Vue.http.delete(url, params))
