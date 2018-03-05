@@ -8,12 +8,7 @@
 <script>
 export default {
   name: 'friendbutton',
-  props: ['name'],
-  data: function () {
-    return {
-      is_friend: false
-    }
-  }
+  props: ['name', 'is_friend', 'id']
 }
 </script>
 
