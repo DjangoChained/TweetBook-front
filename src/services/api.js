@@ -12,7 +12,7 @@ export const checkError = promise =>
     .then(response => {
       if (response.status !== 'success') {
         return Promise.reject(new Error(response.message))
-      }
+      } else return response
     })
 
 export const doGet = (url, params) => checkError(Vue.http.get(url, params))
