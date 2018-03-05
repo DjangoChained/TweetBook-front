@@ -31,7 +31,7 @@
             <legend class="col-form-label col-sm-4 col-md-3 pt-0">Visibilité des publications</legend>
             <div class="col-sm-8 col-md-9">
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="activityVisibility" id="publicVisibility" value="public" v-model="visibility" />
+                <input class="form-check-input" type="radio" name="activityVisibility" id="allVisibility" value="all" v-model="visibility" />
                 <label for="publicVisibility" class="form-check-label">Tout le monde</label>
               </div>
               <div class="form-check">
@@ -39,7 +39,7 @@
                 <label for="friendsVisibility" class="form-check-label">Amis seulement</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="activityVisibility" id="myselfVisibility" value="myself" v-model="visibility" />
+                <input class="form-check-input" type="radio" name="activityVisibility" id="authorVisibility" value="author" v-model="visibility" />
                 <label for="myselfVisibility" class="form-check-label">Moi uniquement</label>
               </div>
             </div>
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import users from '@/services/users'
 export default {
   name: 'Settings',
   data: function () {
@@ -89,11 +90,39 @@ export default {
   },
   methods: {
     saveSettings: function () {
-      // TODO: Enregistrement des paramètres
+      users.saveUserSettings(this.$data.firstName, this.$data.lastName, this.$data.birthDate, this.$data.email, this.$data.visibility)
+        .then(() => {
+          this.$parent.$data.loading = false
+          this.$parent.$data.modal_title = 'Paramètres sauvegardés'
+          this.$parent.$data.modal_content = 'Votre nouvelle configuration prend effet immédiatement.'
+          this.$parent.$data.modal = true
+        }, err => {
+          this.$parent.$data.loading = false
+          this.$parent.$data.modal_title = "Erreur lors de l'enregistrement"
+          this.$parent.$data.modal_content = err.message
+          this.$parent.$data.modal = true
+        })
     },
     savePassword: function () {
       // TODO: Modification du mot de passe
     }
+  },
+  mounted: function () {
+    this.$parent.$data.loading = true
+    users.getUserSettings().then(settings => {
+      this.$data.firstName = settings.firstName
+      this.$data.lastName = settings.lastName
+      this.$data.birthDate = settings.birthdate
+      this.$data.email = settings.email
+      // this.$data.visibility = settings.visibility
+      this.$parent.$data.loading = false
+    }, err => {
+      this.$parent.$data.loading = false
+      this.$parent.$data.modal_title = 'Échec du chargement des paramètres'
+      this.$parent.$data.modal_content = err.message
+      this.$parent.$data.modal = true
+      this.$router.back()
+    })
   }
 }
 </script>
