@@ -10,7 +10,7 @@ import 'font-awesome/css/font-awesome.min.css'
 
 Vue.config.productionTip = false
 Vue.use(VueResource)
-Vue.http.options.root = 'http://localhost:8080/TweetLivre'
+Vue.http.options.root = 'http://localhost:8080/TweetBook'
 
 /* eslint-disable no-new */
 export default new Vue({
