@@ -15,7 +15,7 @@ export const checkError = promise =>
       } else return response
     })
 
-export const doGet = (url, params) => checkError(Vue.http.get(url, params))
+export const doGet = (url, params) => checkError(Vue.http.get(url, { body: params }))
 export const doPost = (url, params) => checkError(Vue.http.post(url, params))
 export const doPut = (url, params) => checkError(Vue.http.put(url, params))
-export const doDelete = (url, params) => checkError(Vue.http.delete(url, params))
+export const doDelete = (url, params) => checkError(Vue.http.delete(url, { body: params }))
