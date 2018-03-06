@@ -11,5 +11,6 @@ export default {
   saveUserSettings: (first, last, birth, email, visibility) =>
     doPut('user/settings', {
       firstname: first, lastname: last, birthdate: birth, email: email, visibility: visibility
-    })
+    }),
+  changePassword: (currentp, newp) => doPut('user/password', { currentPassword: currentp, newPassword: newp })
 }

@@ -104,7 +104,24 @@ export default {
         })
     },
     savePassword: function () {
-      // TODO: Modification du mot de passe
+      if (this.$data.newPassword !== this.$data.confirmPassword) {
+        this.$parent.$data.modal_title = 'Saisie incorrecte'
+        this.$parent.$data.modal_content = 'Le nouveau mot de passe et la confirmation du nouveau mot de passe ne correspondent pas.'
+        this.$parent.$data.modal = true
+        return
+      }
+      users.changePassword(this.$data.currentPassword, this.$data.newPassword)
+        .then(() => {
+          this.$parent.$data.loading = false
+          this.$parent.$data.modal_title = 'Mot de passe modifié'
+          this.$parent.$data.modal_content = 'Votre nouveau mot de passe prend effet immédiatement.'
+          this.$parent.$data.modal = true
+        }, err => {
+          this.$parent.$data.loading = false
+          this.$parent.$data.modal_title = "Erreur lors de l'enregistrement"
+          this.$parent.$data.modal_content = err.message
+          this.$parent.$data.modal = true
+        })
     }
   },
   mounted: function () {
