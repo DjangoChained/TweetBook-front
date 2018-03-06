@@ -1,14 +1,48 @@
 <template>
   <div class="frienditem">
       <p>{{ name }}</p>
-      <button type="button" class="btn btn-secondary" v-on:click="is_friend = !is_friend"><i class="fa" v-bind:class="{ 'fa-plus': !is_friend, 'fa-times': is_friend }"></i></button>
+      <button type="button" class="btn btn-secondary" v-on:click="buttonClick"><i class="fa" v-bind:class="{ 'fa-plus': !friend, 'fa-times': friend }"></i></button>
   </div>
 </template>
 
 <script>
+import friends from '@/services/friends'
 export default {
   name: 'friendbutton',
-  props: ['name', 'is_friend', 'id']
+  props: ['name', 'is_friend', 'id'],
+  data: function () {
+    return {
+      friend: this.$props.is_friend
+    }
+  },
+  methods: {
+    buttonClick: function () {
+      this.$parent.$parent.$data.loading = true
+      if (!this.$data.friend) { // Ajout d'ami
+        friends.add(this.$props.id).then(res => {
+          this.$parent.$parent.$data.loading = false
+          this.$data.friend = true
+        }, err => {
+          this.$parent.$parent.$data.loading = false
+          this.$data.friend = false
+          this.$parent.$parent.$data.modal_title = "Erreur lors de l'ajout d'un ami"
+          this.$parent.$parent.$data.modal_content = err.message
+          this.$parent.$parent.$data.modal = true
+        })
+      } else { // Retrait d'ami
+        friends.remove(this.$props.id).then(res => {
+          this.$parent.$parent.$data.loading = false
+          this.$data.friend = false
+        }, err => {
+          this.$parent.$parent.$data.loading = false
+          this.$data.friend = true
+          this.$parent.$parent.$data.modal_title = "Erreur lors du retrait d'un ami"
+          this.$parent.$parent.$data.modal_content = err.message
+          this.$parent.$parent.$data.modal = true
+        })
+      }
+    }
+  }
 }
 </script>
 
