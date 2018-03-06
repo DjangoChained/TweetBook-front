@@ -24,6 +24,8 @@ export default {
     this.$parent.$data.loading = true
     getWall().then(res => {
       this.$data.activities = res.activities
+        .sort((a, b) => ~~(a.date < b.date))
+        .map(act => { act.date = act.date.split('T', 2)[0]; return act })
       this.$parent.$data.loading = false
     }, err => {
       this.$parent.$data.loading = false
