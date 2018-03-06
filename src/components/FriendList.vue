@@ -10,19 +10,20 @@
         </div>
       </form>
       <h2>Mes amis</h2>
-      <friendbutton name="Ami 1"></friendbutton>
-      <friendbutton name="Ami 2"></friendbutton>
-      <friendbutton name="Ami 3"></friendbutton>
+      <friendbutton v-for="friend in friends" :key="friend.id" :id="friend.id" :name="friend.name" is_friend="true"></friendbutton>
+      <p v-show="friends.length < 1">Vous n'avez pas d'amis :(</p>
   </div>
 </template>
 
 <script>
 import friendbutton from './friendbutton.vue'
+import friends from '@/services/friends'
 export default {
   name: 'FriendList',
   data: function () {
     return {
-      searchText: ''
+      searchText: '',
+      friends: []
     }
   },
   components: {
@@ -34,6 +35,19 @@ export default {
         this.$router.push({name: 'FriendSearch', params: { text: this.$data.searchText.trim() }})
       }
     }
+  },
+  mounted: function () {
+    this.$parent.$data.loading = true
+    friends.get().then(res => {
+      this.$data.friends = res.friends
+      this.$parent.$data.loading = false
+    }, err => {
+      this.$parent.$data.loading = false
+      this.$parent.$data.modal_title = 'Erreur lors du chargement des amis'
+      this.$parent.$data.modal_content = err.message
+      this.$parent.$data.modal = true
+      this.$router.back()
+    })
   }
 }
 </script>

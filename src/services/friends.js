@@ -1,4 +1,7 @@
-import { doGet } from './api'
+import { doGet, doPost, doDelete } from './api'
 export default {
-  search: query => doGet('friends/search?q=' + query)
+  get: () => doGet('friends'),
+  search: query => doGet('friends/search?q=' + query),
+  add: id => doPost('friends', { 'id_friend': id }),
+  remove: id => doDelete('friends', { 'id_friend': id })
 }
