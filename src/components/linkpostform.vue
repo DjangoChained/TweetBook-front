@@ -18,6 +18,7 @@
 </template>
 
 <script>
+import { sendLink } from '@/services/post'
 export default {
   name: 'linkpostform',
   data: function () {
@@ -36,8 +37,14 @@ export default {
   },
   methods: {
     sendPost: function () {
-      // TODO: Envoi d'une publication lien
-      this.$data.content = ''
+      this.$parent.setLoading(true)
+      sendLink(this.$data.content, this.$data.url, this.$data.title).then(response => {
+        this.$data.content = ''
+        this.$data.url = ''
+        this.$data.title = ''
+        this.$parent.setLoading(false)
+      }, err =>
+        this.$parent.showModal('Échec de la publication', err.message))
     }
   }
 }

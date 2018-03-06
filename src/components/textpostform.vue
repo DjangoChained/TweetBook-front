@@ -22,8 +22,10 @@ export default {
   },
   methods: {
     sendPost: function () {
+      this.$parent.setLoading(true)
       sendText(this.$data.content).then(response => {
         this.$data.content = ''
+        this.$parent.setLoading(false)
       }, err =>
         this.$parent.showModal('Échec de la publication', err.message))
     }
