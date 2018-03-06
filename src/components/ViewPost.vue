@@ -4,8 +4,8 @@
 
 <script>
 import post from '@/components/post'
-import getUserRealName from '@/services/users'
-import { doGet } from '@/services/api'
+import { getUserRealName } from '@/services/users'
+import { get } from '@/services/post'
 export default {
   name: 'ViewPost',
   components: {
@@ -17,12 +17,10 @@ export default {
     }
   },
   mounted: function () {
-    doGet(this, 'post?id=' + this.$route.params['id'], result => {
+    get(this.$route.params['id']).then(result => {
       this.post = result
-      getUserRealName(this.post.authorid).then(name => {
-        this.post.authorname = name
-      })
-    })
+      return getUserRealName(this.post.authorid)
+    }).then(name => { this.post.authorname = name })
   }
 }
 </script>
