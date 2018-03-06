@@ -1,13 +1,13 @@
 <template>
     <div class="activity">
-        <div class="fa fa-user-plus"></div> <strong>{{ author }}</strong> est devenu ami avec <strong>{{ friend }}</strong> <em>{{ date }}</em>
+        <div class="fa fa-user-plus"></div> <strong>{{ json.authorname }}</strong> est devenu ami avec <strong>{{ json.othername }}</strong> <em>{{ json.date }}</em>
     </div>
 </template>
 
 <script>
 export default {
   name: 'friendactivity',
-  props: ['author', 'friend', 'date']
+  props: ['json']
 }
 </script>
 

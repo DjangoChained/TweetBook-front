@@ -1,13 +1,13 @@
 <template>
     <div class="activity">
-        <div class="fa" v-bind:class="reactionIcons"></div> <strong>{{ author }}</strong> {{ reactionLabels[reaction] }} <a v-bind:href="'#/post/'+postId"><strong>une publication</strong></a> de <strong>{{ postAuthor }}</strong> <em>{{ date }}</em>
+        <div class="fa" v-bind:class="reactionIcons"></div> <strong>{{ json.authorname }}</strong> {{ reactionLabels[json.reaction] }} <a v-bind:href="'#/post/'+json.id"><strong>une publication</strong></a> de <strong>{{ json.othername }}</strong> <em>{{ json.date }}</em>
     </div>
 </template>
 
 <script>
 export default {
   name: 'reactionactivity',
-  props: ['author', 'postId', 'postAuthor', 'reaction', 'date'],
+  props: ['json'],
   data: function () {
     return {
       reactionLabels: {
