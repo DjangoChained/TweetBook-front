@@ -26,6 +26,13 @@ export default {
     textpostform,
     imagepostform,
     linkpostform
+  },
+  methods: {
+    showModal: function (title, content) {
+      this.$parent.$parent.$data.modal = true
+      this.$parent.$parent.$data.modal_title = title
+      this.$parent.$parent.$data.modal_content = content
+    }
   }
 }
 </script>

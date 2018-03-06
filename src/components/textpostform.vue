@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import { sendText } from '@/services/post'
 export default {
   name: 'textpostform',
   data: function () {
@@ -21,8 +22,10 @@ export default {
   },
   methods: {
     sendPost: function () {
-      // TODO: Envoi d'une publication texte
-      this.$data.content = ''
+      sendText(this.$data.content).then(response => {
+        this.$data.content = ''
+      }, err =>
+        this.$parent.showModal('Échec de la publication', err.message))
     }
   }
 }
