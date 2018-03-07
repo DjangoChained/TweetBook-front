@@ -1,15 +1,14 @@
 <template>
-    <post :json="post" />
+    <activity :json="post" />
 </template>
 
 <script>
-import post from '@/components/post'
-import { getUserRealName } from '@/services/users'
+import activity from '@/components/activity'
 import { get } from '@/services/post'
 export default {
   name: 'ViewPost',
   components: {
-    post
+    activity
   },
   data: function () {
     return {
@@ -17,10 +16,16 @@ export default {
     }
   },
   mounted: function () {
+    this.$parent.$data.loading = true
     get(this.$route.params['id']).then(result => {
-      this.post = result
-      return getUserRealName(this.post.authorid)
-    }).then(name => { this.post.authorname = name })
+      this.post = result.post
+      this.$parent.$data.loading = false
+    }, err => {
+      this.$parent.$data.loading = false
+      this.$parent.$data.modal_title = 'Erreur de récupération de la publication'
+      this.$parent.$data.modal_content = err.message
+      this.$parent.$data.modal = true
+    })
   }
 }
 </script>
