@@ -2,24 +2,34 @@
     <div class="post">
         <div class="post-content">
             <div class="content">
-                <p class="header"><span class="name">{{ post.authorname || '' }}</span> <em>{{ post.date }}</em></p>
+                <p class="header"><span class="name">{{ post.authorname }}</span> <em>{{ post.date }}</em></p>
                 <p>{{ post.content }}</p>
             </div>
             <div class="btn-group-vertical">
-                <button type="button" class="btn btn-success" v-bind:class="{ active: reaction == 'like' }" v-on:click="reaction = (reaction == 'like' ? '' : 'like')"><i class="fa fa-thumbs-up"></i></button>
-                <button type="button" class="btn btn-danger" v-bind:class="{active: reaction == 'dislike' }" v-on:click="reaction = (reaction == 'dislike' ? '' : 'dislike')"><i class="fa fa-thumbs-down"></i></button>
+                <button type="button" class="btn btn-success" v-bind:class="{ active: reaction == 'like' }" v-on:click="updateReaction(reaction == 'like' ? '' : 'like')"><i class="fa fa-thumbs-up"></i></button>
+                <button type="button" class="btn btn-danger" v-bind:class="{active: reaction == 'dislike' }" v-on:click="updateReaction(reaction == 'dislike' ? '' : 'dislike')"><i class="fa fa-thumbs-down"></i></button>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import { sendReaction, removeReaction } from '@/services/post'
 export default {
   name: 'textpost',
   props: ['post'],
   data: function () {
     return {
       reaction: ''
+    }
+  },
+  methods: {
+    updateReaction: function (newreaction) {
+      (newreaction !== ''
+        ? sendReaction(this.$props.post.id, newreaction)
+        : removeReaction(this.$props.post.id)).then(response => {
+        this.$data.reaction = newreaction
+      }, err => this.$parent.$parent.showModal('Erreur de mise à jour de la réaction', err.message))
     }
   }
 }

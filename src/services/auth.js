@@ -1,4 +1,4 @@
-import Vue from 'vue'
+// import Vue from 'vue'
 import { doGet, doPost } from '@/services/api'
 
 export default {
@@ -7,7 +7,7 @@ export default {
     return doPost('user/login', {'email': email, 'password': password})
       .then(response => {
         this.authenticated = true
-        Vue.http.headers.common['X-Session'] = response.sessionid
+        // Vue.http.headers.common['X-Session'] = response.sessionid
         return true
       })
   },
@@ -15,7 +15,7 @@ export default {
     return doGet('user/logout')
       .then(response => {
         this.authenticated = false
-        Vue.http.headers.common['X-Session'] = null
+        // Vue.http.headers.common['X-Session'] = null
         return true
       })
   },

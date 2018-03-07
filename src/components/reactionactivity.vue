@@ -1,6 +1,6 @@
 <template>
     <div class="activity">
-        <div class="fa" v-bind:class="reactionIcons"></div> <strong>{{ json.authorname }}</strong> {{ reactionLabels[json.reaction] }} <a v-bind:href="'#/post/'+json.id"><strong>une publication</strong></a> de <strong>{{ json.othername }}</strong> <em>{{ json.date }}</em>
+        <div class="fa" v-bind:class="reactionIcons"></div> <strong>{{ json.authorname }}</strong> {{ reactionLabels[json.reaction] }} <a v-bind:href="'#/post/'+json.id_post"><strong>une publication</strong></a> de <strong>{{ json.othername }}</strong> <em>{{ json.date }}</em>
     </div>
 </template>
 
@@ -15,8 +15,8 @@ export default {
         'dislike': "n'a pas aimé"
       },
       reactionIcons: {
-        'fa-thumbs-up': this.$props.reaction === 'like',
-        'fa-thumbs-down': this.$props.reaction === 'dislike'
+        'fa-thumbs-up': this.$props.json.reaction === 'like',
+        'fa-thumbs-down': this.$props.json.reaction === 'dislike'
       }
     }
   }

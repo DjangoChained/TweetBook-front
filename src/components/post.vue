@@ -17,6 +17,15 @@ export default {
     textpost,
     imagepost,
     linkpost
+  },
+  methods: {
+    showModal: function (title, content) {
+      this.setLoading(false)
+      this.$parent.$parent.$data.modal = true
+      this.$parent.$parent.$data.modal_title = title
+      this.$parent.$parent.$data.modal_content = content
+    },
+    setLoading: function (value) { this.$parent.$parent.$data.loading = value }
   }
 }
 </script>
