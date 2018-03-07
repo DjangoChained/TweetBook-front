@@ -21,6 +21,12 @@
           </div>
         </div>
         <div class="form-group row">
+          <label for="usernameInput" class="col-sm-4 col-md-3 col-form-label">Nom d'utilisateur</label>
+          <div class="col-sm-8 col-md-9">
+            <input type="text" id="usernameInput" class="form-control" placeholder="Nom d'utilisateur" autocomplete="username" v-model="username" required />
+          </div>
+        </div>
+        <div class="form-group row">
           <label for="emailInput" class="col-sm-4 col-md-3 col-form-label">Adresse e-mail</label>
           <div class="col-sm-8 col-md-9">
             <input type="email" id="emailInput" class="form-control" placeholder="Adresse e-mail" autocomplete="email" v-model="email" required />
@@ -39,7 +45,7 @@
                 <label for="friendsVisibility" class="form-check-label">Amis seulement</label>
               </div>
               <div class="form-check">
-                <input class="form-check-input" type="radio" name="activityVisibility" id="authorVisibility" value="author" v-model="visibility" />
+                <input class="form-check-input" type="radio" name="activityVisibility" id="authoronlyVisibility" value="authoronly" v-model="visibility" />
                 <label for="myselfVisibility" class="form-check-label">Moi uniquement</label>
               </div>
             </div>
@@ -81,6 +87,7 @@ export default {
       lastName: '',
       firstName: '',
       birthDate: '',
+      username: '',
       email: '',
       visibility: '',
       currentPassword: '',
@@ -90,7 +97,7 @@ export default {
   },
   methods: {
     saveSettings: function () {
-      users.saveUserSettings(this.$data.firstName, this.$data.lastName, this.$data.birthDate, this.$data.email, this.$data.visibility)
+      users.saveUserSettings(this.$data.firstName, this.$data.lastName, this.$data.birthDate, this.$data.email, this.$data.username, this.$data.visibility)
         .then(() => {
           this.$parent.$data.loading = false
           this.$parent.$data.modal_title = 'Paramètres sauvegardés'
@@ -131,7 +138,8 @@ export default {
       this.$data.lastName = settings.lastName
       this.$data.birthDate = settings.birthdate
       this.$data.email = settings.email
-      // this.$data.visibility = settings.visibility
+      this.$data.username = settings.username
+      this.$data.visibility = settings.visibility
       this.$parent.$data.loading = false
     }, err => {
       this.$parent.$data.loading = false
