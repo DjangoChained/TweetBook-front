@@ -77,7 +77,7 @@ export default {
       this.$parent.$data.loading = true
       auth.login(this.$data.email, this.$data.password).then(() => {
         this.$parent.$data.loading = false
-        this.$router.push('/feed')
+        this.$router.push('/wall')
       }, err => {
         this.$parent.$data.loading = false
         this.$parent.$data.modal_title = "Erreur d'authentification"

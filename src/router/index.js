@@ -78,7 +78,7 @@ router.beforeEach((to, from, next) => {
     }
   } else {
     if (auth.authenticated) {
-      return next('/feed')
+      return next('/wall')
     }
   }
   next()
