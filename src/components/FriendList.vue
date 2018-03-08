@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <h2>Trouver de nouveaux amis</h2>
-      <form class="form-inline mb-5">
+      <form class="form-inline mb-5" v-on:submit.prevent>
         <div class="input-group w-100">
           <input type="text" class="form-control" placeholder="Entrez un nom" v-on:keyup.13="doSearch" v-model="searchText" style="height: 2.5em" />
           <div class="input-group-append">
@@ -17,7 +17,7 @@
 
 <script>
 import friendbutton from './friendbutton.vue'
-import friends from '@/services/friends'
+// import friends from '@/services/friends'
 export default {
   name: 'FriendList',
   data: function () {
@@ -31,13 +31,15 @@ export default {
   },
   methods: {
     doSearch: function (event) {
+      event.preventDefault()
       if (this.$data.searchText.trim().length) {
         this.$router.push({name: 'FriendSearch', params: { text: this.$data.searchText.trim() }})
       }
+      return false
     }
   },
   mounted: function () {
-    this.$parent.$data.loading = true
+    /* this.$parent.$data.loading = true
     friends.get().then(res => {
       this.$data.friends = res.friends
       this.$parent.$data.loading = false
@@ -47,7 +49,7 @@ export default {
       this.$parent.$data.modal_content = err.message
       this.$parent.$data.modal = true
       this.$router.back()
-    })
+    }) */
   }
 }
 </script>
