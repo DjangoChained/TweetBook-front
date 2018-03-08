@@ -1,7 +1,7 @@
 <template>
   <div class="container">
       <h2>Trouver de nouveaux amis</h2>
-      <form class="form-inline mb-5">
+      <form class="form-inline mb-5" v-on:submit.prevent>
         <div class="input-group w-100">
           <input type="text" class="form-control" placeholder="Entrez un nom" v-on:keyup.13="doSearch" v-model="searchText" style="height: 2.5em" />
           <div class="input-group-append">
@@ -31,9 +31,11 @@ export default {
   },
   methods: {
     doSearch: function (event) {
+      event.preventDefault()
       if (this.$data.searchText.trim().length) {
         this.$router.push({name: 'FriendSearch', params: { text: this.$data.searchText.trim() }})
       }
+      return false
     }
   },
   mounted: function () {
