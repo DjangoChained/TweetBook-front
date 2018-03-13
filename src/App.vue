@@ -23,6 +23,8 @@
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cog"></i></a>
                 <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item"><i class="fa fa-user"></i> {{ currentuser }}</a>
+                  <div class="dropdown-divider"></div>
                   <a href="#/settings" class="dropdown-item">Paramètres</a>
                   <a href="#/logout" class="dropdown-item">Se déconnecter</a>
                 </div>
@@ -52,7 +54,8 @@ export default {
       loading_text: 'Chargement',
       modal: false,
       modal_title: '',
-      modal_content: ''
+      modal_content: '',
+      currentuser: ''
     }
   },
   components: {

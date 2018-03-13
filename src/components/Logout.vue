@@ -9,6 +9,7 @@ export default {
     this.$parent.$data.loading = true
     auth.logout().then(() => {
       this.$parent.$data.loading = false
+      this.$parent.$data.currentuser = ''
       this.$router.push('/')
     }, err => {
       this.$parent.$data.loading = false

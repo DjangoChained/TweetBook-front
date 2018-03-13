@@ -75,8 +75,9 @@ export default {
   methods: {
     loginButton: function () {
       this.$parent.$data.loading = true
-      auth.login(this.$data.email, this.$data.password).then(() => {
+      auth.login(this.$data.email, this.$data.password).then(res => {
         this.$parent.$data.loading = false
+        this.$parent.$data.currentuser = res.name
         this.$router.push('/wall')
       }, err => {
         this.$parent.$data.loading = false
