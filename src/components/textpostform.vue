@@ -26,6 +26,7 @@ export default {
       sendText(this.$data.content).then(response => {
         this.$data.content = ''
         this.$parent.setLoading(false)
+        this.$parent.doRefresh()
       }, err =>
         this.$parent.showModal('Échec de la publication', err.message))
     }

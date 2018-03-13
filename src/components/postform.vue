@@ -34,7 +34,10 @@ export default {
       this.$parent.$parent.$data.modal_title = title
       this.$parent.$parent.$data.modal_content = content
     },
-    setLoading: function (value) { this.$parent.$parent.$data.loading = value }
+    setLoading: function (value) { this.$parent.$parent.$data.loading = value },
+    doRefresh: function () {
+      this.$parent.$parent.update()
+    }
   }
 }
 </script>
