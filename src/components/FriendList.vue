@@ -17,7 +17,7 @@
 
 <script>
 import friendbutton from './friendbutton.vue'
-// import friends from '@/services/friends'
+import friends from '@/services/friends'
 export default {
   name: 'FriendList',
   data: function () {
@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted: function () {
-    /* this.$parent.$data.loading = true
+    this.$parent.$data.loading = true
     friends.get().then(res => {
       this.$data.friends = res.friends
       this.$parent.$data.loading = false
@@ -49,7 +49,7 @@ export default {
       this.$parent.$data.modal_content = err.message
       this.$parent.$data.modal = true
       this.$router.back()
-    }) */
+    })
   }
 }
 </script>
