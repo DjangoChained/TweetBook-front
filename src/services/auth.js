@@ -1,4 +1,3 @@
-// import Vue from 'vue'
 import { doGet, doPost } from '@/services/api'
 
 export default {
@@ -7,16 +6,14 @@ export default {
     return doPost('user/login', {'email': email, 'password': password})
       .then(response => {
         this.authenticated = true
-        // Vue.http.headers.common['X-Session'] = response.sessionid
-        return true
+        return response
       })
   },
   logout: function () {
     return doGet('user/logout')
       .then(response => {
         this.authenticated = false
-        // Vue.http.headers.common['X-Session'] = null
-        return true
+        return response
       })
   },
   register: function (firstname, lastname, birthdate, username, email, password) {

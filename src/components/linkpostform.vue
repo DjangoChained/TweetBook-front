@@ -43,6 +43,7 @@ export default {
         this.$data.url = ''
         this.$data.title = ''
         this.$parent.setLoading(false)
+        this.$parent.doRefresh()
       }, err =>
         this.$parent.showModal('Échec de la publication', err.message))
     }

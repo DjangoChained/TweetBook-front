@@ -36,7 +36,7 @@ export default {
     },
     setLoading: function (value) { this.$parent.$parent.$data.loading = value },
     doRefresh: function () {
-      this.$parent.$parent.update()
+      this.$parent.update()
     }
   }
 }
